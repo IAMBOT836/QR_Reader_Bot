@@ -1,71 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - QR-Based User Manual Bot</title>
+    <title>Contact Us | QR-Based User Manual Bot</title>
+
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('BACKGROUND.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        section {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.7);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.5rem;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        input, textarea {
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-        button {
-            padding: 12px;
-            background: #a855f7;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #8a2be2;
-        }
-    </style>
 </head>
+
 <body>
+
+    <!-- Navigation -->
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
+            <li><a href="user-benefits.html">User Benefits</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
     <!-- Contact Section -->
-    <section id="contact">
-        <h1>Contact Us</h1>
-        <p>If you have any questions, feedback, or suggestions, please reach out to us using the form below.</p>
-        <form action="#" method="post">
-            <input type="text" id="name" name="name" placeholder="Your Name" required>
-            <input type="email" id="email" name="email" placeholder="Your Email" required>
-            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+
+    <section class="contact-container">
+
+        <h1>Get In Touch</h1>
+
+        <p>
+            Have questions, suggestions, or feedback?
+            We'd love to hear from you.
+        </p>
+
+        <div class="contact-grid">
+
+            <!-- Contact Form -->
+
+            <div class="contact-form">
+
+                <form id="contactForm">
+
+                    <input
+                        type="text"
+                        placeholder="Your Name"
+                        required>
+
+                    <input
+                        type="email"
+                        placeholder="Your Email"
+                        required>
+
+                    <textarea
+                        rows="6"
+                        placeholder="Write your message here..."
+                        required>
+                    </textarea>
+
+                    <button type="submit">
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Contact Info -->
+
+            <div class="contact-info">
+
+                <h2>Contact Information</h2>
+
+                <p>
+                    📧 Email:
+                    support@qrmanualbot.com
+                </p>
+
+                <p>
+                    📱 Phone:
+                    +91 XXXXX XXXXX
+                </p>
+
+                <p>
+                    📍 Location:
+                    Bangalore, Karnataka
+                </p>
+
+                <p>
+                    🕒 Support Hours:
+                    Mon - Sat
+                    9 AM - 6 PM
+                </p>
+
+            </div>
+
+        </div>
+
+        <div id="success-message"></div>
+
     </section>
+
+<script src="main.js"></script>
+
 </body>
 </html>

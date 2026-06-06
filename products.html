@@ -1,56 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - QR-Based User Manual Bot</title>
+    <title>Products | QR-Based User Manual Bot</title>
+
     <link rel="stylesheet" href="styles.css">
+
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('nav ul li a').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('href');
-                    window.location.href = target;
-                });
-            });
-        });
-
-        function scanQRCode() {
-            const video = document.createElement('video');
-            const canvasElement = document.createElement('canvas');
-            const canvas = canvasElement.getContext('2d');
-            const outputMessage = document.getElementById('output');
-            const constraints = { video: { facingMode: 'environment' } };
-
-            navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-                video.srcObject = stream;
-                video.setAttribute('playsinline', true);
-                video.play();
-                document.body.appendChild(video);
-                requestAnimationFrame(tick);
-            });
-
-            function tick() {
-                canvasElement.height = video.videoHeight;
-                canvasElement.width = video.videoWidth;
-                canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-                try {
-                    const code = jsQR(canvas.getImageData(0, 0, canvasElement.width, canvasElement.height).data, canvasElement.width, canvasElement.height);
-                    if (code) {
-                        outputMessage.innerText = `QR Code Scanned: ${code.data}`;
-                    }
-                } catch (error) {
-                    outputMessage.innerText = "Scanning...";
-                }
-                requestAnimationFrame(tick);
-            }
-        }
-    </script>
 </head>
+
 <body>
-    <!-- Navigation Bar -->
+
+    <!-- Navigation -->
+
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
@@ -63,12 +27,64 @@
         </ul>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home">
-        <h1>Welcome to the QR-Based User Manual Bot</h1>
-        <p>Scan a QR code to access product manuals instantly.</p>
-        <button onclick="scanQRCode()">Scan QR Code Now</button>
-        <p id="output"></p>
+    <!-- Product Section -->
+
+    <section class="products-container">
+
+        <h1>Create Product Manual QR</h1>
+
+        <p>
+            Enter your product information and generate
+            a QR code instantly.
+        </p>
+
+        <div class="product-form">
+
+            <input
+                type="text"
+                id="productName"
+                placeholder="Product Name">
+
+            <input
+                type="text"
+                id="companyName"
+                placeholder="Company Name">
+
+            <input
+                type="text"
+                id="productCategory"
+                placeholder="Product Category">
+	    <input
+		type="file"
+		id="productImage"
+		accept="image/*">
+
+            <textarea
+                id="manualText"
+                rows="8"
+                placeholder="Enter Product Manual Here...">
+            </textarea>
+
+            <button onclick="generateQR()">
+                Generate QR Code
+            </button>
+
+        </div>
+
+        <!-- QR Output -->
+
+        <div id="qr-code"></div>
+
+        <button
+            id="downloadBtn"
+            style="display:none;">
+            Download QR
+        </button>
+
     </section>
+
+<script src="main.js"></script>
+<script src="qr-generator.js"></script>
+
 </body>
 </html>

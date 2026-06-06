@@ -1,98 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - QR-Based User Manual Bot</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('nav ul li a').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('href');
-                    window.location.href = target;
-                });
-            });
-        });
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        function scanQRCode() {
-            const video = document.createElement('video');
-            const canvasElement = document.createElement('canvas');
-            const canvas = canvasElement.getContext('2d');
-            const outputMessage = document.getElementById('output');
-            const constraints = { video: { facingMode: 'environment' } };
+<title>QR-Based User Manual Bot</title>
 
-            navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-                video.srcObject = stream;
-                video.setAttribute('playsinline', true);
-                video.play();
-                document.body.appendChild(video);
-                requestAnimationFrame(tick);
-            });
+<link rel="stylesheet" href="styles.css">
 
-            function tick() {
-                canvasElement.height = video.videoHeight;
-                canvasElement.width = video.videoWidth;
-                canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-                const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-                const code = jsQR(imageData.data, imageData.width, imageData.height);
-                if (code) {
-                    video.srcObject.getTracks().forEach(track => track.stop());
-                    video.remove();
-                    document.body.innerHTML += `<div class='confirmation-screen'><h2>QR Code Scanned!</h2><p>Data: ${code.data}</p><button onclick="window.location.href='index.html'">Back to Home</button></div>`;
-                } else {
-                    outputMessage.innerText = "Scanning...";
-                }
-                requestAnimationFrame(tick);
-            }
-        }
-    </script>
-    <style>
-        .confirmation-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-        .confirmation-screen button {
-            padding: 10px 20px;
-            border: none;
-            background: #a855f7;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-    </style>
+<!-- QR Scanner Library -->
+<script src="https://unpkg.com/html5-qrcode"></script>
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="features.html">Features</a></li>
-            <li><a href="how-it-works.html">How It Works</a></li>
-            <li><a href="user-benefits.html">User Benefits</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
 
-    <!-- Home Section -->
-    <section id="home">
-        <h1>Welcome to the QR-Based User Manual Bot</h1>
-        <p>Scan a QR code to access product manuals instantly.</p>
-        <button onclick="scanQRCode()">Scan QR Code Now</button>
-        <p id="output"></p>
-    </section>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="user-benefits.html">User Benefits</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="home">
+
+    <h1>QR-Based User Manual Bot</h1>
+
+    <p>
+        Transform traditional product manuals into
+        accessible digital and audio-guided experiences.
+    </p>
+
+    <div class="hero-buttons">
+	<input
+type="text"
+placeholder="Search Product">
+
+<button>
+Search
+</button>
+        <button onclick="startScanner()">
+            📷 Scan QR
+        </button>
+
+        <button onclick="window.location.href='products.html'">
+            ⚡ Create Manual
+        </button>
+
+    </div>
+
+    <br>
+
+    <!-- QR Scanner Area -->
+    <div id="reader"></div>
+
+    <!-- Scan Result -->
+    <div id="scan-result"></div>
+
+</section>
+
+<!-- USP Section -->
+
+<section class="usp-container">
+
+    <div class="usp-card">
+        <h3>🔊 Audio Guidance</h3>
+        <p>
+            Listen to instructions instead of reading
+            lengthy manuals.
+        </p>
+    </div>
+
+    <div class="usp-card">
+        <h3>♿ Accessibility First</h3>
+        <p>
+            Designed for elderly users and visually
+            impaired individuals.
+        </p>
+    </div>
+
+    <div class="usp-card">
+        <h3>🌱 Eco-Friendly</h3>
+        <p>
+            Reduce paper waste through digital manuals.
+        </p>
+    </div>
+
+</section>
+
+<!-- Future Statistics Section -->
+
+<section>
+
+    <h2>Why Choose Us?</h2>
+
+    <p>✔ Instant Access to Manuals</p>
+
+    <p>✔ QR Based Product Support</p>
+
+    <p>✔ Audio Instructions</p>
+
+    <p>✔ Paperless Documentation</p>
+
+</section>
+
+<script src="main.js"></script>
+<script src="scanner.js"></script>
+
 </body>
 </html>
